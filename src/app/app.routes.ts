@@ -10,6 +10,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'register',
+    loadComponent: () =>
+      import('./components/pages/register/register.component').then(
+        (m) => m.RegisterComponent
+      ),
+  },
+  {
     path: 'home',
     loadComponent: () =>
       import('./components/pages/home/home.component').then(

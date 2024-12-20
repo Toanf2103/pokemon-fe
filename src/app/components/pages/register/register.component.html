@@ -1,20 +1,20 @@
 <section class="min-h-screen flex flex-col">
   <div class="flex flex-1 items-center justify-center">
     <div class="rounded-lg sm:border-2 px-4 lg:px-24 py-16 lg:max-w-xl sm:max-w-md w-full text-center">
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="text-center">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="text-center">
         <h1 class="font-bold tracking-wider text-3xl mb-8 w-full text-gray-600">
-          Sign in
+          Sign Up
         </h1>
 
         <div class="py-2 text-left">
           <input
-            type="email"
+            type="text"
             formControlName="username"
             class="bg-gray-200 border-2 border-gray-100 focus:outline-none bg-gray-100 block w-full py-2 px-4 rounded-lg focus:border-gray-700"
-            placeholder="Email"
+            placeholder="Username"
           />
-          <div *ngIf="loginForm.controls['username'].touched && loginForm.controls['username'].invalid" class="text-red-500 text-sm">
-            Email is required
+          <div *ngIf="registerForm.controls['username'].touched && registerForm.controls['username'].invalid" class="text-red-500 text-sm">
+            Username is required
           </div>
         </div>
 
@@ -25,7 +25,7 @@
             class="bg-gray-200 border-2 border-gray-100 focus:outline-none bg-gray-100 block w-full py-2 px-4 rounded-lg focus:border-gray-700"
             placeholder="Password"
           />
-          <div *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].invalid" class="text-red-500 text-sm">
+          <div *ngIf="registerForm.controls['password'].touched && registerForm.controls['password'].invalid" class="text-red-500 text-sm">
             Password is required
           </div>
         </div>
@@ -33,10 +33,10 @@
         <div class="py-2">
           <button
             type="submit"
-            [disabled]="loginForm.invalid"
+            [disabled]="registerForm.invalid"
             class="border-2 border-gray-100 focus:outline-none bg-purple-600 text-white font-bold tracking-wider block w-full p-2 rounded-lg focus:border-gray-700 hover:bg-purple-700"
           >
-            Sign In
+            Sign Up
           </button>
         </div>
 
@@ -45,10 +45,10 @@
         </div>
       </form>
 
-      <!-- <div class="text-center mt-12">
-        <span> Don't have an account? </span>
-        <a [attr.href]="['/register']" class="font-light text-md text-indigo-600 underline font-semibold hover:text-indigo-800">Create One</a>
-      </div> -->
+      <div class="text-center mt-12">
+        <span> Already have an account? </span>
+        <a [attr.href]="'/login'" class="font-light text-md text-indigo-600 underline font-semibold hover:text-indigo-800">Login</a>
+      </div>
     </div>
   </div>
 </section>

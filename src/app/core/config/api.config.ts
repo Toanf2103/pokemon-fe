@@ -9,5 +9,9 @@ export const API_CONFIG = {
     refresh: '/auth/refresh',
     profile: '/auth/profile',
     // Thêm các endpoints khác ở đây
+
+    pokemon: {
+      home:'pokemons',
+    }
   },
 };

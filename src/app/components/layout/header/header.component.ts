@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
   user: TUser | null = null;
 
   ngOnInit(): void {
-    this.checkAuthAndFetchUserInfo();
+    this.getUserInfo();
 
     this.authService.getLoginStatus().subscribe(() => {
       this.getUserInfo(); // Gọi lại hàm getUserInfo khi người dùng đăng nhập
@@ -47,10 +47,10 @@ export class HeaderComponent implements OnInit {
   }
 
   checkAuthAndFetchUserInfo(): void {
-    if (this.authService.isLoggedIn()) {  // Kiểm tra nếu người dùng đã đăng nhập
+    if (this.authService.isLoggedIn()) { 
       this.getUserInfo();
     } else {
-      this.router.navigate(['/login']);  // Điều hướng về trang đăng nhập nếu chưa đăng nhập
+      this.router.navigate(['/login']);
     }
   }
 

@@ -1,1 +1,176 @@
-sss
+<div
+  class="relative overflow-x-auto shadow-md container mx-auto px-4 sm:px-6 md:px-12 lg:px-24 xl:px-36 py-8"
+>
+  <div class="flex justify-end">
+    <label
+      for="file-import"
+      class="cursor-pointer bg-blue-500 text-white py-2 px-4 rounded"
+      >Import CSV</label
+    >
+    <input
+      type="file"
+      id="file-import"
+      accept=".csv"
+      (change)="import($event)"
+      [(ngModel)]="importFile"
+      style="display: none"
+    />
+  </div>
+  <div
+    class="mt-3 flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white"
+  >
+    <!-- Search Input -->
+    <div class="relative">
+      <label for="table-search-users" class="sr-only">Search</label>
+      <div
+        class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+      >
+        <svg
+          class="w-4 h-4 text-gray-500"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 20 20"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+          />
+        </svg>
+      </div>
+      <input
+        type="text"
+        id="table-search-users"
+        [(ngModel)]="filters.search"
+        class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Search for pokemons"
+        (input)="onSearch()"
+      />
+    </div>
+
+    <!-- Filter Inputs -->
+    <div class="flex space-x-4">
+      <select
+        id="type-filter"
+        class="p-2 border rounded-lg"
+        [(ngModel)]="filters.type"
+        (change)="onFilterChange()"
+      >
+        <option [ngValue]="null">Select Type</option>
+        <option [ngValue]="'fire'">Fire</option>
+        <option [ngValue]="'water'">Water</option>
+        <!-- Add more types here -->
+      </select>
+
+      <select
+        id="legendary-filter"
+        class="p-2 border rounded-lg"
+        [(ngModel)]="filters.legendary"
+        (change)="onFilterChange()"
+      >
+        <option [ngValue]="null">Legendary Status</option>
+        <option [ngValue]="true">Legendary</option>
+        <option [ngValue]="false">Not Legendary</option>
+      </select>
+
+      <input
+        type="number"
+        id="speed-min-filter"
+        class="p-2 border rounded-lg"
+        placeholder="Min Speed"
+        [(ngModel)]="filters.minSpeed"
+        (input)="onFilterChange()"
+      />
+
+      <input
+        type="number"
+        id="speed-max-filter"
+        class="p-2 border rounded-lg"
+        placeholder="Max Speed"
+        [(ngModel)]="filters.maxSpeed"
+        (input)="onFilterChange()"
+      />
+    </div>
+  </div>
+
+  <div>Total: {{ totalItems }}</div>
+
+  <!-- Pokémon Table -->
+  <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+      <tr>
+        <th scope="col" class="px-6 py-3">Id</th>
+        <th scope="col" class="px-6 py-3">Name</th>
+        <th scope="col" class="px-6 py-3">Type1</th>
+        <th scope="col" class="px-6 py-3">Type2</th>
+        <th scope="col" class="px-6 py-3">Legendary</th>
+        <th scope="col" class="px-6 py-3">Speed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let pokemon of pokemons"
+        class="bg-white border-b hover:bg-gray-50"
+      >
+        <th
+          scope="row"
+          class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap"
+        >
+          <img
+            class="w-10 h-10 rounded-full"
+            [src]="pokemon.image"
+            alt="Pokemon image"
+          />
+        </th>
+        <td class="px-6 py-4">
+          <div class="text-base font-semibold">{{ pokemon.name }}</div>
+        </td>
+        <td class="px-6 py-4">{{ pokemon.type1 }}</td>
+        <td class="px-6 py-4">{{ pokemon.type2 }}</td>
+        <td class="px-6 py-4">{{ pokemon.legendary ? "Yes" : "No" }}</td>
+        <td class="px-6 py-4">{{ pokemon.speed }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="mt-8 flex justify-end">
+    <nav>
+      <ul class="inline-flex -space-x-px text-base h-10">
+        <li *ngIf="currentPage > 1">
+          <a
+            href="javascript:void(0)"
+            (click)="$event.preventDefault(); goToPage(currentPage - 1)"
+            class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700"
+          >
+            Previous
+          </a>
+        </li>
+        <ng-container *ngFor="let page of totalPages; let i = index">
+          <li *ngIf="i >= startPage && i <= endPage">
+            <a
+              href="javascript:void(0)"
+              (click)="$event.preventDefault(); goToPage(i + 1)"
+              [ngClass]="{ 'text-blue-600 bg-blue-50': currentPage === i + 1 }"
+              class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+            >
+              {{ i + 1 }}
+            </a>
+          </li>
+        </ng-container>
+        <li *ngIf="currentPage < totalPages.length">
+          <a
+            href="javascript:void(0)"
+            (click)="$event.preventDefault(); goToPage(currentPage + 1)"
+            class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700"
+          >
+            Next
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

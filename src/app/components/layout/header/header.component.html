@@ -2,7 +2,7 @@
     <div class="mx-auto md:px-36 px-4 flex items-center py-2">
       <!-- Logo -->
       <div class="flex items-center">
-        <a href="/" class="text-2xl font-bold text-blue-600">Logo</a>
+        <a href="/" class="text-2xl font-bold text-blue-600">Toanf</a>
       </div>
   
       <!-- Navigation Links -->
@@ -26,6 +26,7 @@
             alt="User Avatar"
             class="w-10 h-10 rounded-full border-2 border-gray-300"
           />
+          <span>{{user.username}}</span>
         </button>
   
         <!-- Popover -->
@@ -37,7 +38,7 @@
             (click)="logout()"
             class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
           >
-            Đăng xuất
+            Logout
           </button>
         </div>
       </div>

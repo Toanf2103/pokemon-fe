@@ -27,7 +27,7 @@ export class AuthService {
   register(credentials: RegisterRequest): Observable<RegisterResponse> {
     return this.http
       .post<LoginResponse>(
-        `${this.API_URL}${API_CONFIG.endpoints.login}`,
+        `${this.API_URL}${API_CONFIG.endpoints.register}`,
         credentials
       )
       .pipe(
@@ -89,7 +89,7 @@ export class AuthService {
       );
   }
   isLoggedIn(): boolean {
-    const token = localStorage.getItem('access_token');  // Hoặc sessionStorage
-    return !!token;  // Trả về true nếu có token, false nếu không
+    const token = localStorage.getItem('access_token');
+    return !!token;
   }
 }

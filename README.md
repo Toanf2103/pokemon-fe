@@ -1,59 +1,57 @@
-# PokemonFe
+# Pokemon Fe
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
 
+### Prerequisites
+Before you begin, ensure you have the following installed:
+- Node.js (v14+)
+- npm or yarn
 ## Development server
 
-To start a local development server, run:
+### Clone the repository
+First, clone the repository to your local machine:
 
 ```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+git clone https://github.com/Toanf2103/pokemon-fe
+cd project-name
 
 ```bash
-ng generate component component-name
+npm install
+npm start
 ```
+## Implemented Features
+### 1. User Registration
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- **Description**: Users can register for a new account by providing username and password.
+- **Implementation Details**:
+  - The system validates the email and password format.
+  - The password is hashed before being stored in the database.
+  - After successful registration you will be logged in to the home page.
 
-```bash
-ng generate --help
-```
+### 2. User Login
 
-## Building
+- **Description**: After registration, users can log in to the system using their username and password.
+- **Implementation Details**:
+  - Users provide their username and password.
 
-To build the project run:
+### 3. Home Page
 
-```bash
-ng build
-```
+- **Description**: The home page  includes a carousel with Pokémon-related content and a section displaying Pokémon images and names.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- **Implementation Details**:
+  - The home page includes a featuring 4 Pokémon-related YouTube video trailers.
+  - Below the carousel, there is a **section** displaying the first 10 Pokémon from the database. This section shows 5 Pokémon per row, with each Pokémon’s image and name clearly visible.
+  - The layout is responsive and works on both mobile and desktop devices, ensuring a smooth user experience across all screen sizes.
 
-## Running unit tests
+ - **Pokémon List**: Shows a grid of 10 Pokémon with their images and names, arranged in 2 rows of 5 items each.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+ ## Screenshots (Example)
 
-```bash
-ng test
-```
+### 3. List Page
 
-## Running end-to-end tests
+- **Description**: Import CSV, filter data
 
-For end-to-end (e2e) testing, run:
+## Screenshots (Example)
 
-```bash
-ng e2e
-```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

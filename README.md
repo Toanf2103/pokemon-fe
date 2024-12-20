@@ -1,4 +1,4 @@
-# Pokemon Fe
+![{22332D6E-D624-41E5-9D9E-8E2749794FFB}](https://github.com/user-attachments/assets/8e00d37a-2593-46ef-b1a3-bd69dd0bc35b)# Pokemon Fe
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
 
@@ -27,12 +27,17 @@ npm start
   - The system validates the email and password format.
   - The password is hashed before being stored in the database.
   - After successful registration you will be logged in to the home page.
+  ![image](https://github.com/user-attachments/assets/873f2a53-9f96-4a15-832b-fc474c4ee229)
+
 
 ### 2. User Login
 
 - **Description**: After registration, users can log in to the system using their username and password.
 - **Implementation Details**:
   - Users provide their username and password.
+  ## Screenshots (Example)
+  ![image](https://github.com/user-attachments/assets/16a97089-6d9f-4e72-ab50-fb3078b1df03)
+
 
 ### 3. Home Page
 
@@ -46,12 +51,18 @@ npm start
  - **Pokémon List**: Shows a grid of 10 Pokémon with their images and names, arranged in 2 rows of 5 items each.
 
  ## Screenshots (Example)
+ ![{61EBC53C-E82A-4747-AD08-2E21E799C017}](https://github.com/user-attachments/assets/f8c454c0-e142-4439-b6b9-c2ac2b5e35fe)
+ ![{C2120935-6714-41AA-8369-940BD201C9FC}](https://github.com/user-attachments/assets/e6472c9d-8571-4ffc-8142-783c543e1089)
+
+
 
 ### 3. List Page
 
 - **Description**: Import CSV, filter data
 
 ## Screenshots (Example)
+![{E299E2A8-2816-4C9C-9D9B-D3E847B0634A}](https://github.com/user-attachments/assets/a8f8c006-4a66-421a-b03e-f6293842a94f)
+
 
 
 

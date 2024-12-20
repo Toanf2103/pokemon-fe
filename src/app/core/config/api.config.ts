@@ -14,6 +14,7 @@ export const API_CONFIG = {
     pokemon: {
       home:'/pokemons',
       import:'/pokemons/import',
-    }
+    },
+    favorites:'/favorites/'
   },
 };

@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_CONFIG } from '../config/api.config';
 
@@ -30,17 +34,32 @@ export class PokemonService {
     );
   }
 
-  getPokemons(page: number, limit: number, filters: PokemonFilters): Observable<any> {
+  toggleFavorite(id: string) {
+    return this.http.post<any[]>(
+      `${this.API_URL}${API_CONFIG.endpoints.favorites}${id}`,
+      {}
+    );
+  }
+
+  getPokemons(
+    page: number,
+    limit: number,
+    filters: PokemonFilters
+  ): Observable<any> {
     // Xây dựng query params
     const params: any = {
       page,
       limit,
-      ...filters
+      ...filters,
     };
 
     // Loại bỏ các params có giá trị rỗng
-    Object.keys(params).forEach(key => {
-      if (params[key] === '' || params[key] === null || params[key] === undefined) {
+    Object.keys(params).forEach((key) => {
+      if (
+        params[key] === '' ||
+        params[key] === null ||
+        params[key] === undefined
+      ) {
         delete params[key];
       }
     });
@@ -50,9 +69,12 @@ export class PokemonService {
     );
   }
 
-  uploadFile(file: File): Observable<any> { 
+  uploadFile(file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file, file.name);
-    return this.http.post<any>(`${this.API_URL}${API_CONFIG.endpoints.pokemon.import}`, formData);
+    return this.http.post<any>(
+      `${this.API_URL}${API_CONFIG.endpoints.pokemon.import}`,
+      formData
+    );
   }
 }

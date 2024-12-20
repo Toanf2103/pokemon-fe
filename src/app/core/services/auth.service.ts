@@ -1,8 +1,8 @@
 // src/app/core/services/auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { LoginResponse, LoginRequest } from '../../shared/models/auth.model';
+import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
+import { LoginResponse, LoginRequest, RegisterRequest, RegisterResponse } from '../../shared/models/auth.model';
 import { API_CONFIG } from '../config/api.config';
 import { TUser } from '../../shared/models/user.model';
 
@@ -11,6 +11,7 @@ import { TUser } from '../../shared/models/user.model';
 })
 export class AuthService {
   private readonly API_URL = API_CONFIG.baseUrl;
+  private loginSubject = new Subject<void>(); 
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
@@ -21,6 +22,29 @@ export class AuthService {
   private checkInitialAuth(): void {
     const token = localStorage.getItem('access_token');
     this.isAuthenticatedSubject.next(!!token);
+  }
+
+  register(credentials: RegisterRequest): Observable<RegisterResponse> {
+    return this.http
+      .post<LoginResponse>(
+        `${this.API_URL}${API_CONFIG.endpoints.login}`,
+        credentials
+      )
+      .pipe(
+        tap((response) => {
+          localStorage.setItem('access_token', response.accessToken);
+          localStorage.setItem('refresh_token', response.refreshToken);
+          this.isAuthenticatedSubject.next(true);
+        })
+      );
+  }
+
+  emitLogin() {
+    this.loginSubject.next(); // Khi người dùng đăng nhập, phát sự kiện
+  }
+
+  getLoginStatus() {
+    return this.loginSubject.asObservable();
   }
 
   login(credentials: LoginRequest): Observable<LoginResponse> {
@@ -63,5 +87,9 @@ export class AuthService {
           localStorage.setItem('refresh_token', response.refreshToken);
         })
       );
+  }
+  isLoggedIn(): boolean {
+    const token = localStorage.getItem('access_token');  // Hoặc sessionStorage
+    return !!token;  // Trả về true nếu có token, false nếu không
   }
 }

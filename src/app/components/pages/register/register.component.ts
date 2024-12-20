@@ -1,4 +1,3 @@
-// src/app/components/login/login.component.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -12,14 +11,14 @@ import {
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormsModule],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
 })
-export class LoginComponent {
-  loginForm: FormGroup;
+export class RegisterComponent {
+  registerForm: FormGroup;
   errorMessage: string = '';
 
   constructor(
@@ -27,27 +26,21 @@ export class LoginComponent {
     private authService: AuthService,
     private router: Router
   ) {
-    this.loginForm = this.fb.group({
+    this.registerForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
 
-  onLoginSuccess(): void {
-    this.authService.emitLogin();
-    console.log('User logged in, event emitted');
-  }
-
   onSubmit(): void {
-    if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value).subscribe({
+    if (this.registerForm.valid) {
+      this.authService.register(this.registerForm.value).subscribe({
         next: () => {
-          this.onLoginSuccess();
           this.router.navigate(['/home']);
         },
         error: (error) => {
-          this.errorMessage = 'Login failed. Please try again.';
-          console.error('Login error:', error);
+          this.errorMessage = 'Registration failed. Please try again.';
+          console.error('Registration error:', error);
         },
       });
     }

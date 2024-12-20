@@ -32,10 +32,16 @@ export class RegisterComponent {
     });
   }
 
+  onLoginSuccess(): void {
+    this.authService.emitLogin();
+    console.log('User logged in, event emitted');
+  }
+
   onSubmit(): void {
     if (this.registerForm.valid) {
       this.authService.register(this.registerForm.value).subscribe({
         next: () => {
+          this.onLoginSuccess();
           this.router.navigate(['/home']);
         },
         error: (error) => {

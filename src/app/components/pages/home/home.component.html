@@ -9,7 +9,7 @@
         <iframe
           *ngFor="let trailer of trailers; let i = index"
           class="w-full aspect-video rounded-lg"
-          [src]="trailer|safe"
+          [src]="trailer | safe"
           [title]="'Pokémon Trailer ' + (i + 1)"
           allowfullscreen
         ></iframe>
@@ -21,17 +21,28 @@
   <section>
     <h2 class="text-2xl font-bold mb-4">Pokémon Gallery</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-      <div class="card pokemon-image" *ngFor="let pokemon of pokemons; let i = index">
+      <div
+        class="card pokemon-image"
+        *ngFor="let pokemon of pokemons; let i = index"
+      >
         <div class="content">
           <div class="back">
             <div class="back-content">
               <img
-                [src]="pokemon.image|safe"
+                [src]="pokemon.image | safe"
                 alt="Bulbasaur"
                 class="w-9/10 object-contain mb-4"
               />
-              <strong>{{pokemon.name}}</strong>
+              <strong>{{ pokemon.name }}</strong>
             </div>
+
+            <button
+              class="favorite-btn"
+              [ngClass]="{ favorite: pokemon.isFavorite }"
+              (click)="toggleFavorite(pokemon)"
+            >
+              <i class="fa-solid fa-heart"></i>
+            </button>
           </div>
           <div class="front">
             <div class="img">
@@ -42,42 +53,34 @@
 
             <div class="front-content">
               <div class="description">
-                  <p>
-                    Name: {{pokemon.name}}
-                  </p>
+                <p>Name: {{ pokemon.name }}</p>
 
-                  <p *ngIf="pokemon.type2 || pokemon.type1">
-                    Type: {{pokemon.type1}} {{pokemon.type2}}
-                  </p>
+                <p *ngIf="pokemon.type2 || pokemon.type1">
+                  Type: {{ pokemon.type1 }} {{ pokemon.type2 }}
+                </p>
 
-                  <p *ngIf="pokemon.total">
-                    Total: {{pokemon.total}}
-                  </p>
-                  <p *ngIf="pokemon.hp">
-                    Hp: {{pokemon.hp}}
-                  </p>
-                  <p *ngIf="pokemon.attack">
-                    Attack: {{pokemon.attack}}
-                  </p>
-                  <p *ngIf="pokemon.defence">
-                    Defence: {{pokemon.defence}}
-                  </p>
-                  <p *ngIf="pokemon.spAttack">
-                    SpAttack: {{pokemon.spAttack}}
-                  </p>
-                  <p *ngIf="pokemon.spDefence">
-                    SpDefence: {{pokemon.spDefence}}
-                  </p>
-                  <p *ngIf="pokemon.speed">
-                    Speed: {{pokemon.speed}}
-                  </p>
-                  <p *ngIf="pokemon.generation">
-                    Generation: {{pokemon.generation}}
-                  </p>
-                  <p *ngIf="pokemon.legendary">
-                    Legendary
-                  </p>
+                <p *ngIf="pokemon.total">Total: {{ pokemon.total }}</p>
+                <p *ngIf="pokemon.hp">Hp: {{ pokemon.hp }}</p>
+                <p *ngIf="pokemon.attack">Attack: {{ pokemon.attack }}</p>
+                <p *ngIf="pokemon.defence">Defence: {{ pokemon.defence }}</p>
+                <p *ngIf="pokemon.spAttack">SpAttack: {{ pokemon.spAttack }}</p>
+                <p *ngIf="pokemon.spDefence">
+                  SpDefence: {{ pokemon.spDefence }}
+                </p>
+                <p *ngIf="pokemon.speed">Speed: {{ pokemon.speed }}</p>
+                <p *ngIf="pokemon.generation">
+                  Generation: {{ pokemon.generation }}
+                </p>
+                <p *ngIf="pokemon.legendary">Legendary</p>
               </div>
+              <button
+                class="favorite-btn"
+                [ngClass]="{ favorite: pokemon.isFavorite }"
+                (click)="toggleFavorite(pokemon)"
+              >
+                <i class="fa-solid fa-heart"></i>
+              </button>
+              <!-- Thêm nút yêu thích -->
             </div>
           </div>
         </div>

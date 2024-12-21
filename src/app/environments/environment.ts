@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000',
+  apiUrl: 'https://pokemon-be-production-9ffb.up.railway.app/api',
 };

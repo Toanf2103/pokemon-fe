@@ -1,6 +1,7 @@
-![{22332D6E-D624-41E5-9D9E-8E2749794FFB}](https://github.com/user-attachments/assets/8e00d37a-2593-46ef-b1a3-bd69dd0bc35b)# Pokemon Fe
+# Pokemon Fe
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+Link: [Link deploy]([https://github.com/angular/angular-cli](https://pokemon-fe-29ne-8xwhfnsqn-toanf2103s-projects.vercel.app/))
 
 ### Prerequisites
 Before you begin, ensure you have the following installed:

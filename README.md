@@ -3,7 +3,7 @@
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
 
 
-###Link: [Link deploy]([https://github.com/angular/angular-cli](https://pokemon-fe-29ne-8xwhfnsqn-toanf2103s-projects.vercel.app)
+#Link: [Link deploy](https://pokemon-fe-29ne-git-main-toanf2103s-projects.vercel.app)
 
 ### Prerequisites
 Before you begin, ensure you have the following installed:

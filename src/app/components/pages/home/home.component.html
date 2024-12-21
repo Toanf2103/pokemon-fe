@@ -1,18 +1,46 @@
 <div class="container mx-auto px-4 sm:px-6 md:px-12 lg:px-24 xl:px-36 py-8">
   <section class="mb-8">
     <h2 class="text-2xl font-bold mb-4">Pokémon Trailers</h2>
-    <div class="relative">
-      <div
-        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-        *ngIf="trailers.length > 0"
-      >
-        <iframe
-          *ngFor="let trailer of trailers; let i = index"
-          class="w-full aspect-video rounded-lg"
-          [src]="trailer | safe"
-          [title]="'Pokémon Trailer ' + (i + 1)"
-          allowfullscreen
-        ></iframe>
+    <div class="slider-container relative w-full max-w-4xl mx-auto" *ngIf="trailers.length > 0">
+      <!-- Slides -->
+      <div class="relative h-[480px] overflow-hidden rounded-lg">
+        <div *ngFor="let trailer of trailers; let i = index" 
+             class="slide absolute w-full h-full transition-transform duration-500 ease-in-out"
+             [class.active]="currentIndex === i"
+             [style.transform]="'translateX(' + (100 * (i - currentIndex)) + '%)'">
+          <iframe
+            class="w-full h-full rounded-lg"
+            [src]="trailer | safe"
+            [title]="'Pokémon Trailer ' + (i + 1)"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+  
+      <!-- Navigation Buttons -->
+      <button 
+        (click)="prevSlide()"
+        class="nav-button prev">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <button 
+        (click)="nextSlide()"
+        class="nav-button next">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+  
+      <!-- Dots -->
+      <div class="dots-container">
+        <button 
+          *ngFor="let _ of trailers; let i = index"
+          (click)="goToSlide(i)"
+          class="dot"
+          [class.active]="currentIndex === i">
+        </button>
       </div>
     </div>
   </section>

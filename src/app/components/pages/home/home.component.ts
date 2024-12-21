@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TrailerService } from '../../../core/services/trailer.service';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy  {
   constructor(
     private trailerService: TrailerService,
     private prokemonService: PokemonService,
@@ -21,10 +21,49 @@ export class HomeComponent implements OnInit {
   trailers: any[] = [];
   pokemons: any[] = [];
   safeUrls: SafeResourceUrl[] = [];
+  currentIndex = 0;
+  private autoSlideInterval: any;
 
   ngOnInit(): void {
     this.getTrailers();
     this.getPokemons();
+    this.startAutoSlide();
+  }
+
+  ngOnDestroy(): void {
+    this.stopAutoSlide();
+  }
+
+  prevSlide(): void {
+    this.currentIndex = this.currentIndex > 0 ? this.currentIndex - 1 : this.trailers.length - 1;
+    this.resetAutoSlide();
+  }
+
+  nextSlide(): void {
+    this.currentIndex = this.currentIndex < this.trailers.length - 1 ? this.currentIndex + 1 : 0;
+    this.resetAutoSlide();
+  }
+
+  goToSlide(index: number): void {
+    this.currentIndex = index;
+    this.resetAutoSlide();
+  }
+
+  private startAutoSlide(): void {
+    this.autoSlideInterval = setInterval(() => {
+      this.nextSlide();
+    }, 5000); // Change slide every 5 seconds
+  }
+
+  private stopAutoSlide(): void {
+    if (this.autoSlideInterval) {
+      clearInterval(this.autoSlideInterval);
+    }
+  }
+
+  private resetAutoSlide(): void {
+    this.stopAutoSlide();
+    this.startAutoSlide();
   }
 
   getTrailers(): void {
@@ -42,7 +81,6 @@ export class HomeComponent implements OnInit {
     this.prokemonService.get(1, 10).subscribe(
       (data: any) => {
         this.pokemons = data.data;
-        console.log('Pokemons:', this.pokemons);
       },
       (error) => {
         console.error('Có lỗi khi gọi API:', error);
